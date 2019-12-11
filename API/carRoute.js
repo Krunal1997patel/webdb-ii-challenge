@@ -52,4 +52,22 @@ router.post('/', (req, res) => {
     }
 })
 
+router.delete('/:id', (req, res) => {
+    const id = req.params.id
+
+    databass('carInfo').where({id}).del()
+    .then(removeCar => {
+        res.status(200).json({
+            mess: `${id} was removed from the car databass`
+        })
+    })
+    .catch(err => {
+        console.log(err , 'from DELETE to delete a data')
+        res.status(500).json({
+            error: 'Can not delete that car info'
+        })
+    })
+
+})
+
 module.exports = router;
